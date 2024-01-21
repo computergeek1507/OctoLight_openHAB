@@ -8,7 +8,7 @@ Code forked from [OctoLight by gigibu5](https://github.com/gigibu5/OctoLight) wi
 ## Setup
 Install via the bundled [Plugin Manager](https://docs.octoprint.org/en/master/bundledplugins/pluginmanager.html) or manually using this URL:
 
-        https://github.com/mark-bloom/OctoLight_Home-Assistant/archive/master.zip
+        https://github.com/computergeek1507/OctoLight_openHAB/archive/master.zip
 Alternatively:
 - Download the repository code as a .zip
 - In the plugin manager of OctoPrint, go to "Get More"
