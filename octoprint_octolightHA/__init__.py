@@ -74,10 +74,10 @@ class OctoLightHAPlugin(
         # Agnostic to entity type
         self._logger.debug("Running get_HA_state")
         _entity_id = self.config['entity_id']
-        url = self.config['address'] + '/api/states/' + _entity_id
+        url = self.config['address'] + '/rest/items/' + _entity_id
         self._logger.debug("get_HA_state url is: {}".format(url))
         
-        headers = dict(Authorization='Bearer ' + self.config['api_key'])
+        headers = {"Content-Type": "application/json; charset=utf-8"}
 
         response = None
         status = None
@@ -98,10 +98,10 @@ class OctoLightHAPlugin(
             status = response.json()['state']
             self._logger.debug("Status response formatted as: {}".format(status))
         except Exception as e:
-            status = 'off'
+            status = 'OFF'
             self._logger.error("Status response invalid format: {}".format(status))
             
-        if(status == 'on'):
+        if(status == 'ON'):
             light_bool = True
         else:
             light_bool = False
@@ -113,12 +113,11 @@ class OctoLightHAPlugin(
         ## AGNOSTIC
         self._logger.debug("Running toggle_HA_state")
         _entity_id = self.config['entity_id']
-        _entity_type = _entity_id.split('.')[0]
         self._logger.debug("Entity: ",_entity_id)
 
-        url = self.config['address'] + '/api/services/'+ _entity_type +'/toggle'
-        data = '{"entity_id":"' + _entity_id + '"}'
-        headers = dict(Authorization='Bearer ' + self.config['api_key'])
+        url = self.config['address'] + '/rest/items/'+ _entity_id
+        data = 'TOGGLE'
+        headers =  {"Content-Type": "text/plain"}
         verify_certificate = self.config['verify_certificate']
         response = None
         
@@ -146,7 +145,6 @@ class OctoLightHAPlugin(
         self._logger.info("OctoLightHA started, listening for GET request")
         self._logger.info("Address: {}, API_Key: {}, Entity_ID: {}, Verify_Certificate: {}".format(
             self._settings.get(["address"]),
-            self._settings.get(["api_key"]),
             self._settings.get(["entity_id"]),
             self._settings.get(["verify_certificate"]),
         ))
